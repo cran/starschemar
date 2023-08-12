@@ -1,4 +1,4 @@
-#' dimensional_query S3 class
+#' `dimensional_query` S3 class
 #'
 #' Internal low-level constructor that creates new objects with the correct
 #' structure.
@@ -31,12 +31,10 @@ new_dimensional_query <- function(ms = NULL) {
 #' @return A `dimensional_query` object.
 #'
 #' @family query functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' ms_mrs <- ct_mrs %>%
+#' ms_mrs <- ct_mrs |>
 #'   constellation_as_multistar()
 #'
 #' dq <- dimensional_query(ms_mrs)

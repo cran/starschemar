@@ -10,15 +10,13 @@
 #' @return A list of `tibble` objects.
 #'
 #' @family results export functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' tl <- ct_mrs %>%
+#' tl <- ct_mrs |>
 #'   constellation_as_tibble_list()
 #'
-#' tl <- ct_mrs %>%
+#' tl <- ct_mrs |>
 #'   constellation_as_tibble_list(include_role_playing = TRUE)
 #'
 #' @export

@@ -1,20 +1,20 @@
 context("test run_query")
 
 test_that("run_query works", {
-  dq <- dimensional_query(ms_mrs_test) %>%
+  dq <- dimensional_query(ms_mrs_test) |>
     select_dimension(name = "where",
-                    attributes = c("city", "state")) %>%
+                    attributes = c("city", "state")) |>
     select_dimension(name = "when",
-                    attributes = c("year", "week")) %>%
+                    attributes = c("year", "week")) |>
     select_fact(
       name = "mrs_age",
       measures = c("deaths"),
       agg_functions = c("SUM")
-    ) %>%
+    ) |>
     select_fact(name = "mrs_cause",
-               measures = c("pneumonia_and_influenza_deaths", "other_deaths")) %>%
-    filter_dimension(name = "when", week <= "03") %>%
-    filter_dimension(name = "where", city == "Bridgeport") %>%
+               measures = c("pneumonia_and_influenza_deaths", "other_deaths")) |>
+    filter_dimension(name = "when", week <= "03") |>
+    filter_dimension(name = "where", city == "Bridgeport") |>
     run_query()
 
   dim <- list(
@@ -38,7 +38,8 @@ test_that("run_query works", {
         week = c("01", "02", "03")
       ),
       row.names = c(NA,-3L),
-      class = c("tbl_df", "tbl", "data.frame", "dimension_table"),
+      class = c("tbl_df",
+                "tbl", "data.frame", "dimension_table"),
       name = "when",
       type = "conformed"
     )
@@ -52,29 +53,29 @@ test_that("run_query works", {
                       2L),
         deaths = c(46L, 43L),
         nrow_agg = 3:4,
-        pneumonia_and_influenza_deaths = 3:2,
-        other_deaths = c(43L, 41L),
+        mrs_cause_pneumonia_and_influenza_deaths = 3:2,
+        mrs_cause_other_deaths = c(43L, 41L),
         mrs_cause_nrow_agg = c(1L,
                                1L)
       ),
       row.names = c(NA,-2L),
-      class = c("tbl_df", "tbl",
-                "data.frame", "fact_table"),
+      class = c("fact_table", "tbl_df", "tbl", "data.frame"
+      ),
       name = "mrs_age",
       foreign_keys = c("when_key",
                        "where_key"),
       measures = c(
         "deaths",
         "nrow_agg",
-        "pneumonia_and_influenza_deaths",
-        "other_deaths",
+        "mrs_cause_pneumonia_and_influenza_deaths",
+        "mrs_cause_other_deaths",
         "mrs_cause_nrow_agg"
       ),
       agg_functions = c(
         deaths = "SUM",
         nrow_agg = "SUM",
-        pneumonia_and_influenza_deaths = "SUM",
-        other_deaths = "SUM",
+        mrs_cause_pneumonia_and_influenza_deaths = "SUM",
+        mrs_cause_other_deaths = "SUM",
         mrs_cause_nrow_agg = "SUM"
       ),
       nrow_agg = "nrow_agg"
@@ -82,20 +83,20 @@ test_that("run_query works", {
   ))
   expect_equal(dq$dimension, dim)
 
-  dq <- dimensional_query(ms_mrs_test) %>%
+  dq <- dimensional_query(ms_mrs_test) |>
     select_dimension(name = "where",
-                    attributes = c("city", "state")) %>%
+                    attributes = c("city", "state")) |>
     select_dimension(name = "when",
-                    attributes = c("year", "week")) %>%
+                    attributes = c("year", "week")) |>
     select_fact(
       name = "mrs_age",
       measures = c("deaths"),
       agg_functions = c("SUM")
-    ) %>%
+    ) |>
     select_fact(name = "mrs_cause",
-               measures = c("pneumonia_and_influenza_deaths", "other_deaths")) %>%
-    filter_dimension(name = "when", week <= "03") %>%
-    filter_dimension(name = "where", city == "Bridgeport") %>%
+               measures = c("pneumonia_and_influenza_deaths", "other_deaths")) |>
+    filter_dimension(name = "when", week <= "03") |>
+    filter_dimension(name = "where", city == "Bridgeport") |>
     run_query(unify_by_grain = FALSE)
 
 
@@ -109,8 +110,8 @@ test_that("run_query works", {
         nrow_agg = 3:4
       ),
       row.names = 1:2,
-      class = c("tbl_df",
-                "tbl", "data.frame", "fact_table"),
+      class = c("fact_table", "tbl_df", "tbl", "data.frame"
+      ),
       name = "mrs_age",
       foreign_keys = c("when_key",
                        "where_key"),
@@ -128,8 +129,8 @@ test_that("run_query works", {
         nrow_agg = c(1L, 1L)
       ),
       row.names = 1:2,
-      class = c("tbl_df",
-                "tbl", "data.frame", "fact_table"),
+      class = c("fact_table", "tbl_df", "tbl", "data.frame"
+      ),
       name = "mrs_cause",
       foreign_keys = c("when_key",
                        "where_key"),

@@ -12,12 +12,10 @@
 #' @return A `dimension_table` object.
 #'
 #' @family incremental refresh functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' d <- ct_mrs %>%
+#' d <- ct_mrs |>
 #'   get_star_schema("mrs_age")
 #'
 #' @export
@@ -49,12 +47,10 @@ get_star_schema.constellation <- function(ct, name) {
 #' @return A vector of star schema names.
 #'
 #' @family incremental refresh functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' d <- ct_mrs %>%
+#' d <- ct_mrs |>
 #'   get_star_schema_names()
 #'
 #' @export

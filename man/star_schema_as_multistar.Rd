@@ -22,15 +22,12 @@ conformed dimensions, each dimension has its own data. It can contain
 multiple fact tables.
 }
 \examples{
-library(tidyr)
 
-ms <- st_mrs_age \%>\%
+ms <- st_mrs_age |>
   star_schema_as_multistar()
 
 }
 \seealso{
-
-
 Other results export functions: 
 \code{\link{constellation_as_multistar}()},
 \code{\link{constellation_as_tibble_list}()},

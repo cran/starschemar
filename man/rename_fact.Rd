@@ -21,14 +21,11 @@ A \code{star_schema} object.
 Set new name for facts.
 }
 \examples{
-library(tidyr)
 
-st <- st_mrs_age \%>\% rename_fact("age")
+st <- st_mrs_age |> rename_fact("age")
 
 }
 \seealso{
-
-
 Other rename functions: 
 \code{\link{get_dimension_attribute_names}()},
 \code{\link{get_measure_names}()},

@@ -23,16 +23,13 @@ A \code{star_schema} object.
 Set new names of some measures in facts.
 }
 \examples{
-library(tidyr)
 
 st <-
-  st_mrs_age \%>\% rename_measures(measures = c("deaths"),
+  st_mrs_age |> rename_measures(measures = c("deaths"),
                                  new_names = c("n_deaths"))
 
 }
 \seealso{
-
-
 Other rename functions: 
 \code{\link{get_dimension_attribute_names}()},
 \code{\link{get_measure_names}()},

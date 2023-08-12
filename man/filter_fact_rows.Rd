@@ -28,19 +28,16 @@ Filtered rows can be deleted using the \code{incremental_refresh_star_schema}
 function.
 }
 \examples{
-library(tidyr)
 
-st <- st_mrs_age \%>\%
-  filter_fact_rows(name = "when", week <= "03") \%>\%
+st <- st_mrs_age |>
+  filter_fact_rows(name = "when", week <= "03") |>
   filter_fact_rows(name = "where", city == "Bridgeport")
 
-st2 <- st_mrs_age \%>\%
+st2 <- st_mrs_age |>
   incremental_refresh_star_schema(st, existing = "delete")
 
 }
 \seealso{
-
-
 Other incremental refresh functions: 
 \code{\link{get_star_schema_names}()},
 \code{\link{get_star_schema}()},

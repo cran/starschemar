@@ -33,15 +33,12 @@ This operation allows us to unify records and automatically propagate
 modifications to facts in star schemas.
 }
 \examples{
-library(tidyr)
 
-ct <- ct_mrs \%>\%
+ct <- ct_mrs |>
   modify_conformed_dimension_records(updates_st_mrs_age)
 
 }
 \seealso{
-
-
 Other data cleaning functions: 
 \code{\link{get_conformed_dimension_names}()},
 \code{\link{get_conformed_dimension}()},

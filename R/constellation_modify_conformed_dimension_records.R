@@ -20,12 +20,10 @@
 #' @return A `constellation` object.
 #'
 #' @family data cleaning functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' ct <- ct_mrs %>%
+#' ct <- ct_mrs |>
 #'   modify_conformed_dimension_records(updates_st_mrs_age)
 #'
 #' @export

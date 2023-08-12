@@ -28,7 +28,6 @@ instances. Returns the dimension instances that do not match the imported
 data.
 }
 \examples{
-library(tidyr)
 
 tb <-
   enrich_dimension_export(st_mrs_age,
@@ -43,8 +42,6 @@ tb2 <- enrich_dimension_import_test(st_mrs_age, name = "when_common", tb)
 
 }
 \seealso{
-
-
 Other dimension enrichment functions: 
 \code{\link{enrich_dimension_export}()},
 \code{\link{enrich_dimension_import}()}

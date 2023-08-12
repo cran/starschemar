@@ -8,12 +8,10 @@
 #' @return A `constellation` object.
 #'
 #' @family incremental refresh functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' ct <- ct_mrs %>%
+#' ct <- ct_mrs |>
 #'   purge_dimensions_constellation()
 #'
 #' @export

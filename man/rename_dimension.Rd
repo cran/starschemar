@@ -23,15 +23,12 @@ A \code{star_schema} object.
 Set new name for a dimension.
 }
 \examples{
-library(tidyr)
 
-st <- st_mrs_age \%>\%
+st <- st_mrs_age |>
   rename_dimension(name = "when", new_name = "when_happened")
 
 }
 \seealso{
-
-
 Other rename functions: 
 \code{\link{get_dimension_attribute_names}()},
 \code{\link{get_measure_names}()},

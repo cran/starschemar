@@ -13,14 +13,12 @@
 #' @return A `dimensional_query` object.
 #'
 #' @family query functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' dq <- dimensional_query(ms_mrs) %>%
+#' dq <- dimensional_query(ms_mrs) |>
 #'   select_dimension(name = "where",
-#'                   attributes = c("city", "state")) %>%
+#'                   attributes = c("city", "state")) |>
 #'   select_dimension(name = "when")
 #'
 #' @export

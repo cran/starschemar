@@ -23,18 +23,15 @@ obtain a \code{tibble} list with them. Role playing dimensions can be optionally
 included.
 }
 \examples{
-library(tidyr)
 
-tl <- ct_mrs \%>\%
+tl <- ct_mrs |>
   constellation_as_tibble_list()
 
-tl <- ct_mrs \%>\%
+tl <- ct_mrs |>
   constellation_as_tibble_list(include_role_playing = TRUE)
 
 }
 \seealso{
-
-
 Other results export functions: 
 \code{\link{constellation_as_multistar}()},
 \code{\link{multistar_as_flat_table}()},

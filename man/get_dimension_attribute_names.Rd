@@ -21,15 +21,12 @@ A vector of attribute names.
 Get the name of attributes in a dimension.
 }
 \examples{
-library(tidyr)
 
 attribute_names <-
-  st_mrs_age \%>\% get_dimension_attribute_names("when")
+  st_mrs_age |> get_dimension_attribute_names("when")
 
 }
 \seealso{
-
-
 Other rename functions: 
 \code{\link{get_measure_names}()},
 \code{\link{rename_dimension_attributes}()},

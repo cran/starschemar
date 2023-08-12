@@ -11,12 +11,10 @@
 #' @return A `multistar` object.
 #'
 #' @family results export functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' ms <- st_mrs_age %>%
+#' ms <- st_mrs_age |>
 #'   star_schema_as_multistar()
 #'
 #' @export

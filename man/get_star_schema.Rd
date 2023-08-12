@@ -21,15 +21,12 @@ A \code{dimension_table} object.
 Get a star schema of a constellation given its name.
 }
 \examples{
-library(tidyr)
 
-d <- ct_mrs \%>\%
+d <- ct_mrs |>
   get_star_schema("mrs_age")
 
 }
 \seealso{
-
-
 Other incremental refresh functions: 
 \code{\link{filter_fact_rows}()},
 \code{\link{get_star_schema_names}()},

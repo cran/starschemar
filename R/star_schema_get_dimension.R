@@ -14,12 +14,10 @@
 #' @return A `dimension_table` object.
 #'
 #' @family data cleaning functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' d <- st_mrs_age %>%
+#' d <- st_mrs_age |>
 #'   get_dimension("when")
 #'
 #' @export
@@ -64,12 +62,10 @@ get_dimension.star_schema <- function(st, name) {
 #' @return A vector of dimension names.
 #'
 #' @family data cleaning functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' dn <- st_mrs_age %>%
+#' dn <- st_mrs_age |>
 #'   get_dimension_names()
 #'
 #' @export

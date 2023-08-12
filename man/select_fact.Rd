@@ -35,26 +35,23 @@ If no aggregation function is included, those defined for the measures are
 considered.
 }
 \examples{
-library(tidyr)
 
-dq <- dimensional_query(ms_mrs) \%>\%
+dq <- dimensional_query(ms_mrs) |>
   select_fact(
     name = "mrs_age",
     measures = c("n_deaths"),
     agg_functions = c("MAX")
   )
 
-dq <- dimensional_query(ms_mrs) \%>\%
+dq <- dimensional_query(ms_mrs) |>
   select_fact(name = "mrs_age",
              measures = c("n_deaths"))
 
-dq <- dimensional_query(ms_mrs) \%>\%
+dq <- dimensional_query(ms_mrs) |>
   select_fact(name = "mrs_age")
 
 }
 \seealso{
-
-
 Other query functions: 
 \code{\link{dimensional_query}()},
 \code{\link{filter_dimension}()},

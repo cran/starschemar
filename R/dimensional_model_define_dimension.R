@@ -17,10 +17,8 @@
 #' @return A `dimensional_model` object.
 #'
 #' @family star definition functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
 #' # dput(colnames(mrs_age))
 #' #
@@ -41,19 +39,19 @@
 #' #   "Deaths"
 #' # )
 #'
-#' dm <- dimensional_model() %>%
+#' dm <- dimensional_model() |>
 #'   define_dimension(name = "When",
 #'                    attributes = c("Week Ending Date",
 #'                                   "WEEK",
-#'                                   "Year")) %>%
+#'                                   "Year")) |>
 #'   define_dimension(name = "When Available",
 #'                    attributes = c("Data Availability Date",
 #'                                   "Data Availability Week",
-#'                                   "Data Availability Year")) %>%
+#'                                   "Data Availability Year")) |>
 #'   define_dimension(name = "Where",
 #'                    attributes = c("REGION",
 #'                                   "State",
-#'                                   "City")) %>%
+#'                                   "City")) |>
 #'   define_dimension(name = "Who",
 #'                    attributes = c("Age Range"))
 #'

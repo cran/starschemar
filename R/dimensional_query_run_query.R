@@ -13,27 +13,25 @@
 #' @return A `dimensional_query` object.
 #'
 #' @family query functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' ms <- dimensional_query(ms_mrs) %>%
+#' ms <- dimensional_query(ms_mrs) |>
 #'   select_dimension(name = "where",
-#'                    attributes = c("city", "state")) %>%
+#'                    attributes = c("city", "state")) |>
 #'   select_dimension(name = "when",
-#'                    attributes = c("when_happened_year")) %>%
+#'                    attributes = c("when_happened_year")) |>
 #'   select_fact(
 #'     name = "mrs_age",
 #'     measures = c("n_deaths"),
 #'     agg_functions = c("MAX")
-#'   ) %>%
+#'   ) |>
 #'   select_fact(
 #'     name = "mrs_cause",
 #'     measures = c("pneumonia_and_influenza_deaths", "other_deaths")
-#'   ) %>%
-#'   filter_dimension(name = "when", when_happened_week <= "03") %>%
-#'   filter_dimension(name = "where", city == "Boston") %>%
+#'   ) |>
+#'   filter_dimension(name = "when", when_happened_week <= "03") |>
+#'   filter_dimension(name = "where", city == "Boston") |>
 #'   run_query()
 #'
 #' @export
@@ -215,8 +213,8 @@ group_facts <- function(dq) {
 #' @keywords internal
 unify_facts_by_grain <- function(dq) {
   fact <- NULL
-  names_fact <- names(dq$output$fact)
   unified_fact <- NULL
+  names_fact <- names(dq$output$fact)
   for (i in seq_along(names_fact)) {
     if (!(names_fact[i] %in% unified_fact)) {
       fact[[names_fact[i]]] <- dq$output$fact[[names_fact[i]]]
@@ -228,11 +226,12 @@ unify_facts_by_grain <- function(dq) {
           unified_fact <- c(unified_fact, names_fact[j])
           fact2 <- dq$output$fact[[names_fact[j]]][, c(fk_i, attr(dq$output$fact[[names_fact[j]]], "measures"))]
 
-          nrow_agg <-  attr(fact2, "nrow_agg")
-          nrow_agg_new <- sprintf("%s_%s", names_fact[j], nrow_agg)
-          names(fact2)[which(names(fact2) == nrow_agg)] <- nrow_agg_new
-          attr(fact2, "measures")[which(attr(fact2, "measures") == nrow_agg)] <- nrow_agg_new
-          names(attr(fact2, "agg_functions"))[which(names(attr(fact2, "agg_functions")) == nrow_agg)] <- nrow_agg_new
+          for (m in attr(fact2, "measures")) {
+            m_new <- sprintf("%s_%s", names_fact[j], m)
+            names(fact2)[which(names(fact2) == m)] <- m_new
+            attr(fact2, "measures")[which(attr(fact2, "measures") == m)] <- m_new
+            names(attr(fact2, "agg_functions"))[which(names(attr(fact2, "agg_functions")) == m)] <- m_new
+          }
 
           attr(fact[[names_fact[i]]], "measures") <-
             c(attr(fact[[names_fact[i]]], "measures"), attr(fact2, "measures"))

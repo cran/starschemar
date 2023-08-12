@@ -20,15 +20,12 @@ Once we have refined the format or content of facts and dimensions, we can
 again obtain a flat table, implemented using a \code{tibble}, from a star schema.
 }
 \examples{
-library(tidyr)
 
-ft <- st_mrs_age \%>\%
+ft <- st_mrs_age |>
   star_schema_as_flat_table()
 
 }
 \seealso{
-
-
 Other results export functions: 
 \code{\link{constellation_as_multistar}()},
 \code{\link{constellation_as_tibble_list}()},

@@ -11,30 +11,28 @@
 #' @return A `tibble`.
 #'
 #' @family results export functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' ft <- ms_mrs %>%
+#' ft <- ms_mrs |>
 #'   multistar_as_flat_table(fact = "mrs_age")
 #'
-#' ms <- dimensional_query(ms_mrs) %>%
+#' ms <- dimensional_query(ms_mrs) |>
 #'   select_dimension(name = "where",
-#'                    attributes = c("city", "state")) %>%
+#'                    attributes = c("city", "state")) |>
 #'   select_dimension(name = "when",
-#'                    attributes = c("when_happened_year")) %>%
+#'                    attributes = c("when_happened_year")) |>
 #'   select_fact(name = "mrs_age",
-#'               measures = c("n_deaths")) %>%
+#'               measures = c("n_deaths")) |>
 #'   select_fact(
 #'     name = "mrs_cause",
 #'     measures = c("pneumonia_and_influenza_deaths", "other_deaths")
-#'   ) %>%
-#'   filter_dimension(name = "when", when_happened_week <= "03") %>%
-#'   filter_dimension(name = "where", city == "Boston") %>%
+#'   ) |>
+#'   filter_dimension(name = "when", when_happened_week <= "03") |>
+#'   filter_dimension(name = "where", city == "Boston") |>
 #'   run_query()
 #'
-#' ft <- ms %>%
+#' ft <- ms |>
 #'   multistar_as_flat_table()
 #'
 #' @export

@@ -14,16 +14,14 @@
 #' @return A `star_schema` object.
 #'
 #' @family incremental refresh functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' st <- st_mrs_age %>%
-#'   filter_fact_rows(name = "when", week <= "03") %>%
+#' st <- st_mrs_age |>
+#'   filter_fact_rows(name = "when", week <= "03") |>
 #'   filter_fact_rows(name = "where", city == "Bridgeport")
 #'
-#' st2 <- st_mrs_age %>%
+#' st2 <- st_mrs_age |>
 #'   incremental_refresh_star_schema(st, existing = "delete")
 #'
 #' @export

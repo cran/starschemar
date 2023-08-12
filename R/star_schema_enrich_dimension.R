@@ -14,10 +14,8 @@
 #' @return A `tibble` object.
 #'
 #' @family dimension enrichment functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
 #' tb <-
 #'   enrich_dimension_export(st_mrs_age,
@@ -67,10 +65,8 @@ enrich_dimension_export.star_schema <- function(st,
 #' @return A `star_schema` object.
 #'
 #' @family dimension enrichment functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
 #' tb <-
 #'   enrich_dimension_export(st_mrs_age,
@@ -134,10 +130,8 @@ enrich_dimension_import.star_schema <-
 #' @return A `dimension` object.
 #'
 #' @family dimension enrichment functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
 #' tb <-
 #'   enrich_dimension_export(st_mrs_age,

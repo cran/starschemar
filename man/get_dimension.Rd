@@ -25,15 +25,12 @@ Role dimensions can be obtained but not role playing dimensions. Role
 dimensions get their instances of role playing dimensions.
 }
 \examples{
-library(tidyr)
 
-d <- st_mrs_age \%>\%
+d <- st_mrs_age |>
   get_dimension("when")
 
 }
 \seealso{
-
-
 Other data cleaning functions: 
 \code{\link{get_conformed_dimension_names}()},
 \code{\link{get_conformed_dimension}()},

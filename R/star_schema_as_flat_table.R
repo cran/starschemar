@@ -9,12 +9,10 @@
 #' @return A `tibble`.
 #'
 #' @family results export functions
-#' @seealso
 #'
 #' @examples
-#' library(tidyr)
 #'
-#' ft <- st_mrs_age %>%
+#' ft <- st_mrs_age |>
 #'   star_schema_as_flat_table()
 #'
 #' @export

@@ -59,7 +59,6 @@ always added which, together with SUM, allows us to obtain the mean if
 needed.
 }
 \examples{
-library(tidyr)
 
 # dput(colnames(mrs_age))
 #
@@ -80,7 +79,7 @@ library(tidyr)
 #   "Deaths"
 # )
 
-dm <- dimensional_model() \%>\%
+dm <- dimensional_model() |>
   define_fact(
     name = "mrs_age",
     measures = c("Deaths"),
@@ -88,19 +87,17 @@ dm <- dimensional_model() \%>\%
     nrow_agg = "nrow_agg"
   )
 
-dm <- dimensional_model() \%>\%
+dm <- dimensional_model() |>
   define_fact(
     name = "mrs_age",
     measures = c("Deaths")
   )
 
-dm <- dimensional_model() \%>\%
+dm <- dimensional_model() |>
   define_fact(name = "Factless fact")
 
 }
 \seealso{
-
-
 Other star definition functions: 
 \code{\link{define_dimension}()},
 \code{\link{dimensional_model}()}
