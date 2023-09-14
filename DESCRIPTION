@@ -1,6 +1,6 @@
 Package: starschemar
 Title: Obtaining Stars from Flat Tables
-Version: 1.2.1
+Version: 1.2.2
 Authors@R: 
     person("Jose", "Samos", , "jsamos@ugr.es", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-4457-3439"))
@@ -16,7 +16,8 @@ Description: Data in multidimensional systems is obtained from operational
     basic data cleaning, dimension enrichment, incremental data refresh
     and query operations, adapted to this context.
 License: MIT + file LICENSE
-URL: https://github.com/josesamos/starschemar
+URL: https://josesamos.github.io/starschemar/,
+        https://github.com/josesamos/starschemar
 BugReports: https://github.com/josesamos/starschemar/issues
 Depends: R (>= 2.10)
 Imports: dplyr, generics, methods, purrr, rlang, snakecase, stats,
@@ -28,8 +29,8 @@ Language: en-GB
 LazyData: true
 RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2023-08-11 15:28:19 UTC; joses
+Packaged: 2023-09-14 04:34:54 UTC; joses
 Author: Jose Samos [aut, cre, cph] (<https://orcid.org/0000-0002-4457-3439>)
 Maintainer: Jose Samos <jsamos@ugr.es>
 Repository: CRAN
-Date/Publication: 2023-08-12 15:50:02 UTC
+Date/Publication: 2023-09-14 04:50:02 UTC

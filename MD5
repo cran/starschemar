@@ -1,7 +1,7 @@
-058340cc754d74148c9bdf488d114250 *DESCRIPTION
+c55849e79cd275f0d20560e3f7b53418 *DESCRIPTION
 1308c73afb98c42b391153e941d622ac *LICENSE
 297f061afc50f07ebe877e03e88095da *NAMESPACE
-1a6f89ea99b895af5a1497288a80ea32 *NEWS.md
+c9b1eee86bce92b6625df21a3bda245b *NEWS.md
 4fd215c26943923a409649d332563bb8 *R/common.R
 3bb567c47875c396f8de35026b144a5b *R/constellation.R
 be9c5ea36abb9351b5bded0996f41d30 *R/constellation_as_multistar.R
@@ -60,8 +60,8 @@ ec4f8c4b1094303df2d9e88732e17143 *R/star_schema_character_dimensions.R
 aa7db637bc3fb5c139b7e45cc1bddcc4 *R/star_schema_role_playing_dimension.R
 4f1b10d0ea9f755d6082fa197e49bf87 *R/star_schema_snake_case.R
 4ca9d0d0ecb099b9c8d9b181e2d65517 *R/star_schema_update_facts_with_dimensions.R
-4993a794de17f47661033c7a0a631530 *R/starschemar.R
-1274c72e171cc63d13b56a4f0187853f *README.md
+3f5f38fa9c4104c8bc88a9ee90aaebf8 *R/starschemar.R
+ceb12c998665d3f32d6df5c5226362a1 *README.md
 c47b7350696511584693c69ddc320ec0 *build/vignette.rds
 1256186d25e98fdf0e304bf43d644e6f *data/ct_mrs.rda
 3f3d9d462a7bf27ccfcd6b2742885eca *data/ct_mrs_test.rda
@@ -232,7 +232,7 @@ e41e11f601a976d7ec835b837edfc8a2 *man/star_schema_as_mst.Rd
 746127652018d95b8f8d80ddc061f9d6 *man/star_schema_as_multistar.Rd
 d8755f575cefd56176207587b7dad4ae *man/star_schema_as_tibble_list.Rd
 c2a0fec8f8b8c56cb78dd8243d744656 *man/star_schema_as_tl.Rd
-fbf18ca218b3f853550a15f4fd976855 *man/starschemar.Rd
+dfc9d697eb853bf94aa9daf10d5314df *man/starschemar.Rd
 7a2bb154e0f2a4f8a0db0336799762f4 *man/typed_value.Rd
 3c793db9911811ae4588774012e9cf34 *man/unify_facts_by_grain.Rd
 5ac9d1ae0a10d9db0a4964560b4068f4 *man/union_of_dimensions.Rd
