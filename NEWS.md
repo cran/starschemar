@@ -1,3 +1,7 @@
+# starschemar 1.2.3
+* Define error messages.
+* Reorganization of the code to make the `geomultistar` package independent.
+
 # starschemar 1.2.2
 * Fix broken @docType package documentation.
 * Include notice about the rolap package.

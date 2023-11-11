@@ -4290,7 +4290,7 @@ executed using <code>run_query.</code> We can refine it using
 <span id="cb38-12"><a href="#cb38-12" tabindex="-1"></a>  <span class="fu">filter_dimension</span>(<span class="at">name =</span> <span class="st">&quot;when&quot;</span>, when_happened_week <span class="sc">&lt;=</span> <span class="st">&quot;03&quot;</span>) <span class="sc">|&gt;</span></span>
 <span id="cb38-13"><a href="#cb38-13" tabindex="-1"></a>  <span class="fu">filter_dimension</span>(<span class="at">name =</span> <span class="st">&quot;where&quot;</span>, city <span class="sc">==</span> <span class="st">&quot;Bridgeport&quot;</span>) <span class="sc">|&gt;</span></span>
 <span id="cb38-14"><a href="#cb38-14" tabindex="-1"></a>  <span class="fu">run_query</span>()</span></code></pre></div>
-<p>The result of a query is an <code>multistar</code> structure. In this
+<p>The result of a query is a <code>multistar</code> structure. In this
 way, we can define queries on the result of others. The result can also
 be transformed into a flat table.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>ft <span class="ot">&lt;-</span> ms <span class="sc">|&gt;</span></span>

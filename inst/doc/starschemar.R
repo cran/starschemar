@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -7,19 +7,19 @@ knitr::opts_chunk$set(
 ## ----setup, echo = FALSE------------------------------------------------------
 library(starschemar)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(mrs, 12), split.table = Inf)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(mrs_age[,-c(1:6)]), split.table = Inf)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(mrs_cause[,-c(1:6)], 18), split.table = Inf)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(mrs_age), split.table = Inf)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(mrs_cause), split.table = Inf)
 
 ## -----------------------------------------------------------------------------
@@ -115,7 +115,7 @@ dm_mrs_cause <- dimensional_model() |>
 ## -----------------------------------------------------------------------------
 st_mrs_age <- star_schema(mrs_age, dm_mrs_age)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(st_mrs_age$dimension$when), split.table = Inf)
 pander::pandoc.table(head(st_mrs_age$dimension$when_available), split.table = Inf)
 pander::pandoc.table(head(st_mrs_age$dimension$where), split.table = Inf)
@@ -133,7 +133,7 @@ st_mrs_age <- st_mrs_age |>
   character_dimensions(NA_replacement_value = "Unknown",
                        length_integers = list(week = 2))
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(st_mrs_age$dimension$when), split.table = Inf)
 pander::pandoc.table(head(st_mrs_age$dimension$when_available), split.table = Inf)
 pander::pandoc.table(head(st_mrs_age$dimension$where), split.table = Inf)
@@ -158,7 +158,7 @@ st_mrs_cause <- star_schema(mrs_cause, dm_mrs_cause) |>
     attributes = c("date", "week", "year")
   )
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(st_mrs_cause$dimension$when), split.table = Inf)
 pander::pandoc.table(head(st_mrs_cause$dimension$when_received), split.table = Inf)
 pander::pandoc.table(head(st_mrs_cause$dimension$when_available), split.table = Inf)
@@ -226,7 +226,7 @@ who <- st_mrs_age |>
 
 # View(who)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(where[where$where_key %in% c(1, 2, 62), ], split.table = Inf)
 
 ## -----------------------------------------------------------------------------
@@ -245,7 +245,7 @@ updates_st_mrs_age <- updates_st_mrs_age |>
     new_values = c("Wilmington")
   ) 
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(when[when$when_key %in% c(36, 37, 73), ], split.table = Inf)
 
 ## -----------------------------------------------------------------------------
@@ -296,7 +296,7 @@ updates_st_mrs_age <- updates_st_mrs_age |>
 st_mrs_age <- st_mrs_age |>
   modify_dimension_records(updates_st_mrs_age)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(st_mrs_age$dimension$when), split.table = Inf)
 pander::pandoc.table(head(st_mrs_age$dimension$when_available), split.table = Inf)
 pander::pandoc.table(head(st_mrs_age$dimension$where), split.table = Inf)
@@ -314,7 +314,7 @@ tb_who <-
                           name = "who",
                           attributes = c("age_range"))
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(tb_who, split.table = Inf)
 
 ## -----------------------------------------------------------------------------
@@ -324,7 +324,7 @@ tb_who <-
   tibble::add_column(tb_who,
                      wide_age_range = v)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(tb_who, split.table = Inf)
 
 ## -----------------------------------------------------------------------------
@@ -332,7 +332,7 @@ st_mrs_age <-
   st_mrs_age |>
   enrich_dimension_import(name = "who", tb_who)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(st_mrs_age$dimension$who, split.table = Inf)
 
 ## -----------------------------------------------------------------------------
@@ -341,7 +341,7 @@ tb_where <-
                           name = "where",
                           attributes = c("division"))
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(tb_where, split.table = Inf)
 
 ## -----------------------------------------------------------------------------
@@ -394,7 +394,7 @@ tb_missing <-
   st_mrs_age |>
   enrich_dimension_import_test(name = "where", ft_usa_states)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(tb_missing, split.table = Inf)
 
 ## -----------------------------------------------------------------------------
@@ -423,13 +423,13 @@ st_mrs_cause <-
   st_mrs_cause |>
   enrich_dimension_import(name = "where", tb_where_county)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(st_mrs_age$dimension$where, 10), split.table = Inf)
 
 ## -----------------------------------------------------------------------------
 ct_mrs <- constellation(list(st_mrs_age, st_mrs_cause), name = "mrs")
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(ct_mrs$dimension$when), split.table = Inf)
 pander::pandoc.table(head(ct_mrs$dimension$when_available), split.table = Inf)
 pander::pandoc.table(head(ct_mrs$dimension$where), split.table = Inf)
@@ -594,14 +594,14 @@ ct_tmp <- ct_mrs |>
   incremental_refresh_constellation(st1, existing = "delete") |>
   incremental_refresh_constellation(st2, existing = "delete")
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(ct_tmp$dimension$where), split.table = Inf)
 
 ## -----------------------------------------------------------------------------
 ct_tmp <- ct_tmp |>
   purge_dimensions_constellation()
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(ct_tmp$dimension$where), split.table = Inf)
 
 ## -----------------------------------------------------------------------------
@@ -616,7 +616,7 @@ ms_mrs <- ct_mrs |>
 ft <- ms_mrs |>
   multistar_as_flat_table(fact = "mrs_age")
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(ft), split.table = Inf)
 
 ## -----------------------------------------------------------------------------
@@ -643,7 +643,7 @@ ms <- dimensional_query(ms_mrs) |>
 ft <- ms |>
   multistar_as_flat_table()
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 pander::pandoc.table(head(ft), split.table = Inf)
 
 ## -----------------------------------------------------------------------------
