@@ -1,3 +1,8 @@
+# starschemar 1.2.4
+* Modify the cph field of the description.
+* Include logo on website.
+* Divide the available vignette into two parts.
+
 # starschemar 1.2.3
 * Define error messages.
 * Reorganization of the code to make the `geomultistar` package independent.

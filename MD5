@@ -1,7 +1,7 @@
-dc54ae1d1618a7c25d2ae9497bcef78f *DESCRIPTION
+d1497b27fa3de63fd988ccbe0ade10e0 *DESCRIPTION
 1308c73afb98c42b391153e941d622ac *LICENSE
 b337ded631a29a6455850c3e7a735e8d *NAMESPACE
-50058166f4c929fd6fc3740e9d319841 *NEWS.md
+9d5a123a3fa0f0ce7811ed7c2f12abd7 *NEWS.md
 ced330809692914b300b31da6f21171e *R/common.R
 05ace08226b0b3f53cce2d56844a1c4e *R/constellation.R
 be9c5ea36abb9351b5bded0996f41d30 *R/constellation_as_multistar.R
@@ -52,8 +52,8 @@ aa7db637bc3fb5c139b7e45cc1bddcc4 *R/star_schema_role_playing_dimension.R
 4f1b10d0ea9f755d6082fa197e49bf87 *R/star_schema_snake_case.R
 4ca9d0d0ecb099b9c8d9b181e2d65517 *R/star_schema_update_facts_with_dimensions.R
 3f5f38fa9c4104c8bc88a9ee90aaebf8 *R/starschemar.R
-9643b116048313a1403fae6ae355b6ab *README.md
-c47b7350696511584693c69ddc320ec0 *build/vignette.rds
+2a56ef199e29361149bca1e65b8cd3c5 *README.md
+86a6a0150e5ca530d6c1fd4d0a290d3a *build/vignette.rds
 1256186d25e98fdf0e304bf43d644e6f *data/ct_mrs.rda
 3f3d9d462a7bf27ccfcd6b2742885eca *data/ct_mrs_test.rda
 56d5055ca1329ec2a907b3cea7649ffe *data/dm_mrs_age.rda
@@ -87,9 +87,13 @@ b14245585a05ed342f1189d4b11f23fa *data/st_mrs_cause_w10.rda
 802ce64ef55e874acff30f0d2ac567f1 *data/st_mrs_cause_w_test.rda
 801ac526cf7872331559ee15c434fe6a *data/updates_st_mrs_age.rda
 56673d9dfb11b79d13f450864ede1625 *data/updates_st_mrs_age_test.rda
-c6d40ed37ddf0a844792591c9a5b33bf *inst/doc/starschemar.R
-f801dc4fe28df49f63edf5079b7c7034 *inst/doc/starschemar.Rmd
-8d95ff125c7feead765028f2feb7e919 *inst/doc/starschemar.html
+322c5c4e96af38f8fe03169c56716ee7 *inst/doc/starschemar.R
+541761874a01103c473ad05425a9a32d *inst/doc/starschemar.Rmd
+855d53e7bab30e46ec8d67b4af3890f8 *inst/doc/starschemar.html
+054e9c3c9d7995b7db5ff756333a0d26 *inst/doc/v10_transformation_op.R
+45378ee71ede3bbbb82390aab7de823f *inst/doc/v10_transformation_op.Rmd
+9a1d96949d93b528729c6a6cefb7b5a2 *inst/doc/v10_transformation_op.html
+26f7e67eee907e12225b338e0bdd50b0 *inst/figures/starschemar.png
 36d337ae2fae93d295af16dc2f2041d0 *man/character_dimension.Rd
 7d53b3692d6b32585ad16249f9907e72 *man/character_dimensions.Rd
 a90745d94b4ea24f99e486f799e49522 *man/conform_all_dimensions.Rd
@@ -113,6 +117,7 @@ d030ee72257c68b4307eb96ceffc40e1 *man/dm_mrs_age.Rd
 76d87acaf71ba4aff80b448e7d1611fa *man/enrich_dimension_export.Rd
 17f043418ef37ef80cd55af6eb854d26 *man/enrich_dimension_import.Rd
 1dcdcfc50c322fb25f78dc3471290719 *man/enrich_dimension_import_test.Rd
+e2c0211dc5512b7ed0ed3fb46625c1ff *man/figures/logo.png
 f18d9178eb50f66f8a0ae792a6ca557d *man/filter_dimension.Rd
 9ad02dda2aa2551eabe48aa256d0c2d2 *man/filter_fact_rows.Rd
 c7cba4d70374f86fd9c4f88deef8b3c3 *man/filter_selected_instances.Rd
@@ -321,4 +326,5 @@ a9ee6b0ac4eeda117ac6f9ebf38417ea *tests/testthat/test-update_facts_with_dimensio
 09934de4a4850ee84bf9d21f84345b58 *tests/testthat/test-update_selection.R
 49e3c6de67e80be755015136178c3b85 *tests/testthat/test-update_selection_general.R
 f4e60fe23b3008df2dc6e75e634746fb *vignettes/bibliography.bib
-f801dc4fe28df49f63edf5079b7c7034 *vignettes/starschemar.Rmd
+541761874a01103c473ad05425a9a32d *vignettes/starschemar.Rmd
+45378ee71ede3bbbb82390aab7de823f *vignettes/v10_transformation_op.Rmd

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Jose Samos (jsamos@ugr.es)" />
+
+<meta name="date" content="2020-09-24" />
+
+<title>starschemar Transformation Operations</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">starschemar Transformation Operations</h1>
+<h4 class="author">Jose Samos (<a href="mailto:jsamos@ugr.es" class="email">jsamos@ugr.es</a>)</h4>
+<h4 class="date">2020-09-24</h4>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Package <code>starschemar</code> offers operations to transform flat
+tables into star schemas and also to export or exploit them through
+queries.</p>
+<ol style="list-style-type: decimal">
+<li><p>From a flat table, we define a dimensional model classifying its
+attributes as facts or dimensions (<em>dimensional
+modelling</em>).</p></li>
+<li><p>From a flat table and a dimensional model we obtain a star schema
+that we can transform; from various star schemas we can define a
+constellation (<em>star schema and constellation
+definition</em>).</p></li>
+<li><p>Dimensions contain rows without duplicates, we can apply
+operations to perform data cleaning and to conform them (<em>cleaning
+and conforming data</em>).</p></li>
+<li><p>When new data is obtained, it is necessary to refresh the
+existing data with them by means of incremental refresh operations
+(<em>incremental refresh</em>).</p></li>
+<li><p>The results obtained can be exported to be consulted with other
+tools (<em>exporting results</em>).</p></li>
+<li><p>Finally, basic queries can be performed from R (<em>query
+functions</em>), especially to select the data to export.</p></li>
+</ol>
+<p>In this document, these operations available in the package are
+briefly presented.</p>
+</div>
+<div id="dimensional-modelling" class="section level1">
+<h1>Dimensional modelling</h1>
+<p>Starting from a flat table, a dimensional model is defined specifying
+the attributes that make up each of the dimensions and the measurements
+in the facts. The result is a <code>dimensional_model</code> object. It
+is carried out through the following functions:</p>
+<ul>
+<li><code>dimensional_model()</code>: An empty
+<code>dimensional_model</code> object is created in which definition of
+facts and dimensions can be added. Example:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>dm <span class="ot">&lt;-</span> <span class="fu">dimensional_model</span>()</span></code></pre></div>
+<ul>
+<li><code>define_dimension()</code>: To define a dimension in a
+<code>dimensional_model</code> object, we have to define its name and
+the set of attributes that make it up. Example:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>dm <span class="ot">&lt;-</span> <span class="fu">dimensional_model</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="fu">define_dimension</span>(<span class="at">name =</span> <span class="st">&quot;When&quot;</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>                   <span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;Week Ending Date&quot;</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>                                  <span class="st">&quot;WEEK&quot;</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>                                  <span class="st">&quot;Year&quot;</span>))</span></code></pre></div>
+<ul>
+<li><code>define_fact()</code>: To define facts in a
+<code>dimensional_model</code> object, the essential data is a name and
+a set of measurements that can be empty (does not have explicit
+measurements). Associated with each measurement, an aggregation function
+is required, which by default is SUM. Examples:</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>dm <span class="ot">&lt;-</span> <span class="fu">dimensional_model</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">define_fact</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;mrs_age&quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>    <span class="at">measures =</span> <span class="fu">c</span>(<span class="st">&quot;Deaths&quot;</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>    <span class="at">agg_functions =</span> <span class="fu">c</span>(<span class="st">&quot;SUM&quot;</span>),</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="at">nrow_agg =</span> <span class="st">&quot;nrow_agg&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  )</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>dm <span class="ot">&lt;-</span> <span class="fu">dimensional_model</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>  <span class="fu">define_fact</span>(<span class="at">name =</span> <span class="st">&quot;Factless fact&quot;</span>)</span></code></pre></div>
+</div>
+<div id="star-schema-and-constellation-definition" class="section level1">
+<h1>Star schema and constellation definition</h1>
+<p>A dimensional model is implemented using a star schema. We can have
+several related star schemas through common dimensions that together
+form a fact constellation.</p>
+<div id="star-schema-definition" class="section level2">
+<h2>Star schema definition</h2>
+<p>A star schema is defined from a flat table and a dimensional model
+definition. Once defined, a star schema can be transformed by defining
+role playing dimensions, changing the writing style of element names or
+the type of dimension attributes. These operations are carried out
+through the following functions:</p>
+<ul>
+<li><code>star_schema()</code>: Creates a <code>star_schema</code>
+object from a flat table (implemented by a <code>tibble</code>) and a
+<code>dimensional_model</code> object. Example:</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>st <span class="ot">&lt;-</span> <span class="fu">star_schema</span>(mrs_age, dm_mrs_age)</span></code></pre></div>
+<ul>
+<li><code>role_playing_dimension()</code>: Given a list of
+<code>star_schema</code> dimension names, all with the same structure, a
+role playing dimension with the indicated name and attributes is
+generated. The original dimensions become role dimensions defined from
+the new role playing dimension. Example:</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>st <span class="ot">&lt;-</span> <span class="fu">star_schema</span>(mrs_age, dm_mrs_age) <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">role_playing_dimension</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="at">dim_names =</span> <span class="fu">c</span>(<span class="st">&quot;when&quot;</span>, <span class="st">&quot;when_available&quot;</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;When Common&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    <span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;Date&quot;</span>, <span class="st">&quot;Week&quot;</span>, <span class="st">&quot;Year&quot;</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  )</span></code></pre></div>
+<ul>
+<li><code>snake_case()</code>: Transform fact, dimension, measurement,
+and attribute names according to the snake case style. Example:</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>st <span class="ot">&lt;-</span> <span class="fu">star_schema</span>(mrs_age, dm_mrs_age) <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">snake_case</span>()</span></code></pre></div>
+<ul>
+<li><code>character_dimensions()</code>: Transforms numeric type
+attributes of dimensions into character type. In a
+<code>star_schema</code> numerical data are measurements that are
+situated in the facts. Numerical data in dimensions are usually codes,
+day, week, month or year numbers. There are tools that consider any
+numerical data to be a measurement, for this reason it is appropriate to
+transform the numerical data of dimensions into character data. It also
+allows indicating the literal to be used in case the numerical value is
+not defined. Example:</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>st <span class="ot">&lt;-</span> <span class="fu">star_schema</span>(mrs_age, dm_mrs_age) <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">character_dimensions</span>()</span></code></pre></div>
+</div>
+<div id="star-schema-rename" class="section level2">
+<h2>Star schema rename</h2>
+<p>Once a star schema is defined, we can rename its elements. It is
+necessary to be able to rename attributes of dimensions and measures of
+facts because the definition operations only allowed us to select
+columns of a flat table. For completeness also dimensions and facts can
+be renamed. To carry out these operations, the following functions are
+available:</p>
+<ul>
+<li><code>rename_dimension()</code>: Set new name for a dimension.
+Example:</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>st <span class="ot">&lt;-</span> st_mrs_age <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">rename_dimension</span>(<span class="at">name =</span> <span class="st">&quot;when&quot;</span>, <span class="at">new_name =</span> <span class="st">&quot;when_happened&quot;</span>)</span></code></pre></div>
+<ul>
+<li><code>get_dimension_attribute_names()</code>: Get the name of
+attributes in a dimension, so that it is easier to modify them if
+necessary. Example:</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>attribute_names <span class="ot">&lt;-</span> </span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  st_mrs_age <span class="sc">|&gt;</span> <span class="fu">get_dimension_attribute_names</span>(<span class="st">&quot;when&quot;</span>)</span></code></pre></div>
+<ul>
+<li><code>rename_dimension_attributes()</code>: Set new names of some
+attributes in a dimension. Example:</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>st <span class="ot">&lt;-</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  st_mrs_age <span class="sc">|&gt;</span> <span class="fu">rename_dimension_attributes</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;when&quot;</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>    <span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;when_happened_week&quot;</span>, <span class="st">&quot;when_happened_year&quot;</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>    <span class="at">new_names =</span> <span class="fu">c</span>(<span class="st">&quot;week&quot;</span>, <span class="st">&quot;year&quot;</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  )</span></code></pre></div>
+<ul>
+<li><code>rename_fact()</code>: Set new name for facts. Example:</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>st <span class="ot">&lt;-</span> st_mrs_age <span class="sc">|&gt;</span> <span class="fu">rename_fact</span>(<span class="st">&quot;age&quot;</span>) </span></code></pre></div>
+<ul>
+<li><code>get_measure_names()</code>: Get the name of the measures in
+fact, so that it is easier to modify them if necessary. Example:</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>measure_names <span class="ot">&lt;-</span> </span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  st_mrs_age <span class="sc">|&gt;</span> <span class="fu">get_measure_names</span>()</span></code></pre></div>
+<ul>
+<li><code>rename_measures()</code>: Set new names of some measures in
+facts. Example:</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>st <span class="ot">&lt;-</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  st_mrs_age <span class="sc">|&gt;</span> <span class="fu">rename_measures</span>(<span class="at">measures =</span> <span class="fu">c</span>(<span class="st">&quot;n_deaths&quot;</span>),</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>                                 <span class="at">new_names =</span> <span class="fu">c</span>(<span class="st">&quot;num_deaths&quot;</span>))</span></code></pre></div>
+</div>
+<div id="constellation-definition" class="section level2">
+<h2>Constellation definition</h2>
+<p>Based on various star schemas, a constellation can be defined in
+which star schemas share common dimensions. Dimensions with the same
+name must be shared. It is defined by the following function:</p>
+<ul>
+<li><code>constellation()</code>: Creates a <code>constellation</code>
+object from a list of <code>star_schema</code> objects. All dimensions
+with the same name in the star schemas have to be conformable.
+Example:</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>ct <span class="ot">&lt;-</span> <span class="fu">constellation</span>(<span class="fu">list</span>(st_mrs_age, st_mrs_cause), <span class="at">name =</span> <span class="st">&quot;mrs&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="cleaning-and-conforming-data" class="section level1">
+<h1>Cleaning and conforming data</h1>
+<p>Once star schemas and fact constellations are defined, data cleaning
+operations can be carried out on dimensions. There are three groups of
+functions:</p>
+<ol style="list-style-type: decimal">
+<li><p>One to obtain components of star schemas and
+constellations.</p></li>
+<li><p>Another to define data cleaning operations over
+dimensions.</p></li>
+<li><p>One more to apply operations to star schemas or
+constellations.</p></li>
+</ol>
+<div id="obtaining-components" class="section level2">
+<h2>Obtaining components</h2>
+<p>We can obtain dimensions from a star schema or conformed dimensions
+from a fact constellation. Available functions in both cases are
+similar.</p>
+<div id="star-schema" class="section level3">
+<h3>Star schema</h3>
+<ul>
+<li><code>get_dimension_names()</code>: Get the names of the dimensions
+of a star schema. Role playing dimensions are not considered.
+Example:</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>dn <span class="ot">&lt;-</span> st_mrs_age <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  <span class="fu">get_dimension_names</span>()</span></code></pre></div>
+<ul>
+<li><code>get_dimension()</code>: Get a dimension of a star schema given
+its name. Role dimensions can be obtained but not role playing
+dimensions. Example:</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>where <span class="ot">&lt;-</span> st_mrs_age <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  <span class="fu">get_dimension</span>(<span class="st">&quot;where&quot;</span>)</span></code></pre></div>
+</div>
+<div id="constellation" class="section level3">
+<h3>Constellation</h3>
+<ul>
+<li><code>get_conformed_dimension_names()</code>: Get the names of the
+conformed dimensions of a constellation. Example:</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>dn <span class="ot">&lt;-</span> ct_mrs <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>  <span class="fu">get_conformed_dimension_names</span>()</span></code></pre></div>
+<ul>
+<li><code>get_conformed_dimension()</code>: Get a conformed dimension of
+a constellation given its name. Example:</li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>when <span class="ot">&lt;-</span> ct_mrs <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  <span class="fu">get_conformed_dimension</span>(<span class="st">&quot;when&quot;</span>)</span></code></pre></div>
+<ul>
+<li><code>get_star_schema_names()</code>: Get the names of the star
+schemas of a constellation. Example:</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>stn <span class="ot">&lt;-</span> ct_mrs <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>  <span class="fu">get_star_schema_names</span>()</span></code></pre></div>
+<ul>
+<li><code>get_star_schema()</code>: Get a star schema of a constellation
+given its name. Example:</li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>age <span class="ot">&lt;-</span> ct_mrs <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>  <span class="fu">get_star_schema</span>(<span class="st">&quot;mrs_age&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="definition-of-updates" class="section level2">
+<h2>Definition of updates</h2>
+<p>Modifications are defined on dimension rows in various ways based
+exclusively on the values of the dimension fields. Although the
+surrogate key intervenes in the definition, the result, internally, does
+not depend on it so that it can be applied more generally in other star
+schemas.</p>
+<ul>
+<li><code>record_update_set()</code>: A <code>record_update_set</code>
+object is created. Stores updates on dimension records. Each update is
+made up of a dimension name, an old value set, and a new value set.
+Example:</li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>updates <span class="ot">&lt;-</span> <span class="fu">record_update_set</span>()</span></code></pre></div>
+<ul>
+<li><code>match_records()</code>: For a dimension, given the primary key
+of two records, it adds an update to the set of updates that modifies
+the combination of values of the rest of attributes of the first record
+so that they become the same as those of the second. Example:</li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>updates <span class="ot">&lt;-</span> <span class="fu">record_update_set</span>() <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  <span class="fu">match_records</span>(<span class="at">dimension =</span> where,</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>                <span class="at">old =</span> <span class="dv">1</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>                <span class="at">new =</span> <span class="dv">2</span>)</span></code></pre></div>
+<ul>
+<li><code>update_record()</code>: For a dimension, given the primary key
+of one record, it adds an update to the set of updates that modifies the
+combination of values of the rest of attributes of the selected record
+so that they become those given. Example:</li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>updates <span class="ot">&lt;-</span> <span class="fu">record_update_set</span>() <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>  <span class="fu">update_record</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>    <span class="at">dimension =</span> who,</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>    <span class="at">old =</span> <span class="dv">1</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;1: &lt;1 year&quot;</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>  )</span></code></pre></div>
+<ul>
+<li><code>update_selection()</code>: For a dimension, given a vector of
+column names, a vector of old values and a vector of new values, it adds
+an update to the set of updates that modifies all the records that have
+the combination of old values in the columns with the new values in
+those same columns. Example:</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>updates <span class="ot">&lt;-</span> <span class="fu">record_update_set</span>() <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="fu">update_selection</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>    <span class="at">dimension =</span> where,</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;city&quot;</span>),</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>    <span class="at">old_values =</span> <span class="fu">c</span>(<span class="st">&quot;Bridgepor&quot;</span>),</span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>    <span class="at">new_values =</span> <span class="fu">c</span>(<span class="st">&quot;Bridgeport&quot;</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>  )</span></code></pre></div>
+<ul>
+<li><code>update_selection_general()</code>: For a dimension, given a
+vector of column names, a vector of old values for those columns,
+another vector column names, and a vector of new values for those
+columns, it adds an update to the set of updates that modifies all the
+records that have the combination of old values in the first column
+vector with the new values in the second column vector. Example:</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>updates <span class="ot">&lt;-</span> <span class="fu">record_update_set</span>() <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="fu">update_selection_general</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>    <span class="at">dimension =</span> where,</span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>    <span class="at">columns_old =</span> <span class="fu">c</span>(<span class="st">&quot;state&quot;</span>, <span class="st">&quot;city&quot;</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>    <span class="at">old_values =</span> <span class="fu">c</span>(<span class="st">&quot;CT&quot;</span>, <span class="st">&quot;Bridgepor&quot;</span>),</span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>    <span class="at">columns_new =</span> <span class="fu">c</span>(<span class="st">&quot;city&quot;</span>),</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a>    <span class="at">new_values =</span> <span class="fu">c</span>(<span class="st">&quot;Bridgeport&quot;</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+<div id="updates-application" class="section level2">
+<h2>Updates application</h2>
+<p>Defined updates can be applied on a star schema or on the conformed
+dimension of a fact constellation.</p>
+<div id="star-schema-1" class="section level3">
+<h3>Star schema</h3>
+<ul>
+<li><code>modify_dimension_records()</code>: Given a list of dimension
+record update operations, they are applied on the dimensions of the
+<code>star_schema</code> object. Update operations must be defined with
+the set of functions available for that purpose. Example:</li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>st <span class="ot">&lt;-</span> st_mrs_age <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>  <span class="fu">modify_dimension_records</span>(updates_st_mrs_age)</span></code></pre></div>
+</div>
+<div id="constellation-1" class="section level3">
+<h3>Constellation</h3>
+<ul>
+<li><code>modify_conformed_dimension_records()</code>: Given a list of
+dimension record update operations, they are applied on the conformed
+dimensions of the <code>constellation</code> object. Update operations
+must be defined with the set of functions available for that purpose.
+Example:</li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>ct <span class="ot">&lt;-</span> ct_mrs <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>  <span class="fu">modify_conformed_dimension_records</span>(updates_st_mrs_age)</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="dimension-enrichment" class="section level1">
+<h1>Dimension enrichment</h1>
+<p>To enrich a dimension with new attributes related to others already
+included in it, first, we export the attributes on which the new ones
+depend, then we define the new attributes, and import the table with all
+the attributes to be added to the dimension.</p>
+<ul>
+<li><code>enrich_dimension_export()</code>: Export the selected
+attributes of a dimension, without repeated combinations, to enrich the
+dimension. If it is a role dimension they cannot be exported, you have
+to work with the associated role playing dimension. Example:</li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>tb <span class="ot">&lt;-</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>  <span class="fu">enrich_dimension_export</span>(st_mrs_age,</span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>                          <span class="at">name =</span> <span class="st">&quot;when_common&quot;</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>                          <span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;week&quot;</span>, <span class="st">&quot;year&quot;</span>))</span></code></pre></div>
+<ul>
+<li><code>enrich_dimension_import()</code>: For a dimension of a star
+schema a <code>tibble</code> is attached. This contains dimension
+attributes and new attributes. If values associated with all rows in the
+dimension are included in the <code>tibble</code>, the dimension is
+enriched with the new attributes. Role dimensions cannot be directly
+enriched. If a role playing dimension is enriched, the new attributes
+are also added to the associated role dimensions. Example:</li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>tb <span class="ot">&lt;-</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  <span class="fu">enrich_dimension_export</span>(st_mrs_age,</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>                          <span class="at">name =</span> <span class="st">&quot;when_common&quot;</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>                          <span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;week&quot;</span>, <span class="st">&quot;year&quot;</span>))</span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="co"># Add new columns with meaningful data (these are not), possibly exporting</span></span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a><span class="co"># data to a file, populating it and importing it.</span></span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a>tb <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">add_column</span>(tb, <span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y&quot;</span>, <span class="at">z =</span> <span class="st">&quot;z&quot;</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a>st <span class="ot">&lt;-</span> <span class="fu">enrich_dimension_import</span>(st_mrs_age, <span class="at">name =</span> <span class="st">&quot;when_common&quot;</span>, tb)</span></code></pre></div>
+<ul>
+<li><code>enrich_dimension_import_test()</code>: Previous to
+<code>enrich_dimension_import</code>, it checks if the
+<code>tibble</code> has values for all dimension instances. Returns the
+dimension instances that do not match the imported data. Example:</li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>tb <span class="ot">&lt;-</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>  <span class="fu">enrich_dimension_export</span>(st_mrs_age,</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>                          <span class="at">name =</span> <span class="st">&quot;when_common&quot;</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>                          <span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;week&quot;</span>, <span class="st">&quot;year&quot;</span>))</span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a><span class="co"># Add new columns with meaningful data (these are not), possibly exporting</span></span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a><span class="co"># data to a file, populating it and importing it.</span></span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a>tb <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">add_column</span>(tb, <span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y&quot;</span>, <span class="at">z =</span> <span class="st">&quot;z&quot;</span>)[<span class="sc">-</span><span class="dv">1</span>, ]</span>
+<span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" tabindex="-1"></a>tb2 <span class="ot">&lt;-</span> <span class="fu">enrich_dimension_import_test</span>(st_mrs_age, <span class="at">name =</span> <span class="st">&quot;when_common&quot;</span>, tb)</span></code></pre></div>
+</div>
+<div id="incremental-refresh" class="section level1">
+<h1>Incremental refresh</h1>
+<p>When new data is obtained, an incremental refresh of the data can be
+carried out, both of the dimensions and of the facts. Incremental
+refresh can be applied to both star schema and fact constellation, using
+the following functions.</p>
+<div id="star-schema-2" class="section level3">
+<h3>Star schema</h3>
+<ul>
+<li><code>incremental_refresh_star_schema()</code>: Incrementally
+refresh a star schema with the content of a new one that is integrated
+into the first. Once the dimensions are integrated, if there are records
+in the fact table whose keys match the new ones, new ones can be
+ignored, they can be replaced by new ones, all of them can be grouped
+using the aggregation functions, or they can be deleted. Therefore, the
+possible values of the <code>existing</code> parameter are: “ignore”,
+“replace”, “group” or “delete”. Example:</li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>st <span class="ot">&lt;-</span> st_mrs_age <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>  <span class="fu">incremental_refresh_star_schema</span>(st_mrs_age_w10, <span class="at">existing =</span> <span class="st">&quot;replace&quot;</span>)</span></code></pre></div>
+<p>Sometimes the data refresh consists of eliminating data that is no
+longer necessary, generally because it corresponds to a period that has
+stopped being analysed but it can also be for other reasons. This data
+can be selected using the following function:</p>
+<ul>
+<li><code>filter_fact_rows()</code>: Filter fact rows based on dimension
+conditions in a star schema. Dimensions remain unchanged. Filtered rows
+can be deleted using the <code>incremental_refresh_star_schema</code>
+function. Example:</li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>st <span class="ot">&lt;-</span> st_mrs_age <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>  <span class="fu">filter_fact_rows</span>(<span class="at">name =</span> <span class="st">&quot;when&quot;</span>, when_happened_week <span class="sc">&lt;=</span> <span class="st">&quot;03&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>  <span class="fu">filter_fact_rows</span>(<span class="at">name =</span> <span class="st">&quot;where&quot;</span>, city <span class="sc">==</span> <span class="st">&quot;Bridgeport&quot;</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a>st2 <span class="ot">&lt;-</span> st_mrs_age <span class="sc">|&gt;</span></span>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a>  <span class="fu">incremental_refresh_star_schema</span>(st, <span class="at">existing =</span> <span class="st">&quot;delete&quot;</span>)</span></code></pre></div>
+<p>Once the fact data is removed (using the other incremental refresh
+functions), we can remove the data for the dimensions that are no longer
+needed using the following function:</p>
+<ul>
+<li><code>purge_dimensions_star_schema()</code>: Delete instances of
+dimensions not related to facts in a star schema. Example:</li>
+</ul>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>st3 <span class="ot">&lt;-</span> st2 <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>  <span class="fu">purge_dimensions_star_schema</span>()</span></code></pre></div>
+</div>
+<div id="constellation-2" class="section level3">
+<h3>Constellation</h3>
+<ul>
+<li><code>incremental_refresh_constellation()</code>: Incrementally
+refresh a star schema in a constellation with the content of a new star
+schema that is integrated into the first. Example:</li>
+</ul>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>ct <span class="ot">&lt;-</span> ct_mrs <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>  <span class="fu">incremental_refresh_constellation</span>(st_mrs_age_w10, <span class="at">existing =</span> <span class="st">&quot;replace&quot;</span>)</span></code></pre></div>
+<ul>
+<li><code>purge_dimensions_constellation()</code>: Delete instances of
+dimensions not related to facts in a star schema. It performs the
+operation for each of the component <code>star_schemas</code> and also
+for the conformed dimensions. Example:</li>
+</ul>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>ct <span class="ot">&lt;-</span> ct_mrs <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>  <span class="fu">purge_dimensions_constellation</span>()</span></code></pre></div>
+</div>
+</div>
+<div id="exporting-results" class="section level1">
+<h1>Exporting results</h1>
+<p>Once the data has been properly structured and transformed, it can be
+exported to be consulted with other tools or with R. Various export
+formats have been defined, both for star schemas and for constellations,
+using the following functions.</p>
+<div id="star-schema-3" class="section level2">
+<h2>Star schema</h2>
+<ul>
+<li><code>star_schema_as_flat_table()</code>: We can again obtain a flat
+table, implemented using a <code>tibble</code>, from a star schema.
+Example:</li>
+</ul>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>ft <span class="ot">&lt;-</span> st_mrs_age <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>  <span class="fu">star_schema_as_flat_table</span>()</span></code></pre></div>
+<ul>
+<li><code>star_schema_as_multistar()</code>: We can obtain a
+<code>multistar</code>. A <code>multistar</code> only distinguishes
+between general and conformed dimensions, each dimension has its own
+data. It can contain multiple fact tables. Example:</li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>ms <span class="ot">&lt;-</span> st_mrs_age <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>  <span class="fu">star_schema_as_multistar</span>()</span></code></pre></div>
+<ul>
+<li><code>star_schema_as_tibble_list()</code>: We can obtain a
+<code>tibble</code> list with them. Role playing dimensions can be
+optionally included. Example:</li>
+</ul>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>tl <span class="ot">&lt;-</span> st_mrs_age <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>  <span class="fu">star_schema_as_tibble_list</span>(<span class="at">include_role_playing =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="constellation-3" class="section level2">
+<h2>Constellation</h2>
+<ul>
+<li><code>constellation_as_multistar()</code>: We can obtain a
+<code>multistar</code>. A <code>multistar</code> only distinguishes
+between general and conformed dimensions, each dimension has its own
+data. It can contain multiple fact tables. Example:</li>
+</ul>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>ms <span class="ot">&lt;-</span> ct_mrs <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>  <span class="fu">constellation_as_multistar</span>()</span></code></pre></div>
+<ul>
+<li><code>constellation_as_tibble_list()</code>: We can obtain a
+<code>tibble</code> list with them. Role playing dimensions can be
+optionally included. Example:</li>
+</ul>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>tl <span class="ot">&lt;-</span> ct_mrs <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>  <span class="fu">constellation_as_tibble_list</span>(<span class="at">include_role_playing =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="multistar" class="section level2">
+<h2><code>multistar</code></h2>
+<ul>
+<li><code>multistar_as_flat_table()</code>: We can obtain a flat table,
+implemented using a <code>tibble</code>, from a <code>multistar</code>
+(which can be the result of a query). If it only has one fact table, it
+is not necessary to provide its name. Example:</li>
+</ul>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>ft <span class="ot">&lt;-</span> ms_mrs <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>  <span class="fu">multistar_as_flat_table</span>(<span class="at">fact =</span> <span class="st">&quot;mrs_age&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="query-functions" class="section level1">
+<h1>Query functions</h1>
+<p>There are many multidimensional query tools available. The exported
+data, once stored in files, can be used directly from them. You can also
+perform basic queries from R on data in the <code>multistar</code>
+format, mainly for selecting the data to export, using the following
+functions:</p>
+<ul>
+<li><code>dimensional_query()</code>: An empty
+<code>dimensional_query</code> object is created where you can select
+fact measures, dimension attributes and filter dimension rows.
+Example:</li>
+</ul>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>ms_mrs <span class="ot">&lt;-</span> ct_mrs <span class="sc">|&gt;</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>  <span class="fu">constellation_as_multistar</span>()</span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a>dq <span class="ot">&lt;-</span> <span class="fu">dimensional_query</span>(ms_mrs)</span></code></pre></div>
+<ul>
+<li><code>select_fact()</code>: To define the fact to be consulted, its
+name is indicated, optionally, a vector of names of selected measures
+and another of aggregation functions are also indicated. If the name of
+any measure is not indicated, only the one corresponding to the number
+of aggregated rows is included, which is always included. If no
+aggregation function is included, those defined for the measures are
+considered. Examples:</li>
+</ul>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>dq <span class="ot">&lt;-</span> <span class="fu">dimensional_query</span>(ms_mrs) <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>  <span class="fu">select_fact</span>(</span>
+<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;mrs_age&quot;</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a>    <span class="at">measures =</span> <span class="fu">c</span>(<span class="st">&quot;n_deaths&quot;</span>),</span>
+<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a>    <span class="at">agg_functions =</span> <span class="fu">c</span>(<span class="st">&quot;MAX&quot;</span>)</span>
+<span id="cb43-6"><a href="#cb43-6" tabindex="-1"></a>  )</span>
+<span id="cb43-7"><a href="#cb43-7" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" tabindex="-1"></a>dq <span class="ot">&lt;-</span> <span class="fu">dimensional_query</span>(ms_mrs) <span class="sc">|&gt;</span></span>
+<span id="cb43-9"><a href="#cb43-9" tabindex="-1"></a>  <span class="fu">select_fact</span>(<span class="at">name =</span> <span class="st">&quot;mrs_age&quot;</span>,</span>
+<span id="cb43-10"><a href="#cb43-10" tabindex="-1"></a>              <span class="at">measures =</span> <span class="fu">c</span>(<span class="st">&quot;n_deaths&quot;</span>))</span>
+<span id="cb43-11"><a href="#cb43-11" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" tabindex="-1"></a>dq <span class="ot">&lt;-</span> <span class="fu">dimensional_query</span>(ms_mrs) <span class="sc">|&gt;</span></span>
+<span id="cb43-13"><a href="#cb43-13" tabindex="-1"></a>  <span class="fu">select_fact</span>(<span class="at">name =</span> <span class="st">&quot;mrs_age&quot;</span>)</span></code></pre></div>
+<ul>
+<li><code>select_dimension()</code>: To add a dimension in a
+<code>dimensional_query</code> object, we have to define its name and a
+subset of the dimension attributes. If only the name of the dimension is
+indicated, it is considered that all its attributes should be added.
+Example:</li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>dq <span class="ot">&lt;-</span> <span class="fu">dimensional_query</span>(ms_mrs) <span class="sc">|&gt;</span></span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>  <span class="fu">select_dimension</span>(<span class="at">name =</span> <span class="st">&quot;where&quot;</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>                   <span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;city&quot;</span>, <span class="st">&quot;state&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>  <span class="fu">select_dimension</span>(<span class="at">name =</span> <span class="st">&quot;when&quot;</span>)</span></code></pre></div>
+<ul>
+<li><code>filter_dimension()</code>: Allows you to define selection
+conditions for dimension rows. Conditions can be defined on any
+attribute of the dimension (not only on attributes selected in the query
+for the dimension). The selection is made based on the function
+<code>dplyr::filter</code>. Conditions are defined in exactly the same
+way as in that function. Example:</li>
+</ul>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>dq <span class="ot">&lt;-</span> <span class="fu">dimensional_query</span>(ms_mrs) <span class="sc">|&gt;</span></span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>  <span class="fu">filter_dimension</span>(<span class="at">name =</span> <span class="st">&quot;when&quot;</span>, when_happened_week <span class="sc">&lt;=</span> <span class="st">&quot;03&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>  <span class="fu">filter_dimension</span>(<span class="at">name =</span> <span class="st">&quot;where&quot;</span>, city <span class="sc">==</span> <span class="st">&quot;Boston&quot;</span>)</span></code></pre></div>
+<ul>
+<li><code>run_query()</code>: Once we have selected the facts,
+dimensions and defined the conditions on the instances, we can execute
+the query to obtain the result. As an option, we can indicate if we do
+not want to unify the facts in the case of having the same grain.
+Example:</li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>ms <span class="ot">&lt;-</span> <span class="fu">dimensional_query</span>(ms_mrs) <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>  <span class="fu">select_dimension</span>(<span class="at">name =</span> <span class="st">&quot;where&quot;</span>,</span>
+<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a>                   <span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;city&quot;</span>, <span class="st">&quot;state&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb46-4"><a href="#cb46-4" tabindex="-1"></a>  <span class="fu">select_dimension</span>(<span class="at">name =</span> <span class="st">&quot;when&quot;</span>,</span>
+<span id="cb46-5"><a href="#cb46-5" tabindex="-1"></a>                   <span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;when_happened_year&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb46-6"><a href="#cb46-6" tabindex="-1"></a>  <span class="fu">select_fact</span>(</span>
+<span id="cb46-7"><a href="#cb46-7" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;mrs_age&quot;</span>,</span>
+<span id="cb46-8"><a href="#cb46-8" tabindex="-1"></a>    <span class="at">measures =</span> <span class="fu">c</span>(<span class="st">&quot;n_deaths&quot;</span>)</span>
+<span id="cb46-9"><a href="#cb46-9" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb46-10"><a href="#cb46-10" tabindex="-1"></a>  <span class="fu">select_fact</span>(</span>
+<span id="cb46-11"><a href="#cb46-11" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;mrs_cause&quot;</span>,</span>
+<span id="cb46-12"><a href="#cb46-12" tabindex="-1"></a>    <span class="at">measures =</span> <span class="fu">c</span>(<span class="st">&quot;pneumonia_and_influenza_deaths&quot;</span>, <span class="st">&quot;other_deaths&quot;</span>)</span>
+<span id="cb46-13"><a href="#cb46-13" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb46-14"><a href="#cb46-14" tabindex="-1"></a>  <span class="fu">filter_dimension</span>(<span class="at">name =</span> <span class="st">&quot;when&quot;</span>, when_happened_week <span class="sc">&lt;=</span> <span class="st">&quot;03&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-15"><a href="#cb46-15" tabindex="-1"></a>  <span class="fu">filter_dimension</span>(<span class="at">name =</span> <span class="st">&quot;where&quot;</span>, city <span class="sc">==</span> <span class="st">&quot;Boston&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-16"><a href="#cb46-16" tabindex="-1"></a>  <span class="fu">run_query</span>()</span></code></pre></div>
+</div>
+<div id="conclusions" class="section level1">
+<h1>Conclusions</h1>
+<p><code>starschemar</code> package offers a set of operations that
+allow us to transform flat tables into star schemas. Star schemas
+support the definition of role playing and role dimensions. Additional
+transformation operations can be applied to each star schema to adapt
+the format of the data. From several star schemas you can define fact
+constellation with conformed dimensions.</p>
+<p>Operations have been designed to be intuitive and easy to use. The
+result greatly facilitates the data transformation process for the
+exposed situation. In this document the available operations have been
+briefly presented.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

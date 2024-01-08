@@ -1,15 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Notice
-
-Based on this package, the
-[`rolap`](https://CRAN.R-project.org/package=rolap) package has been
-developed. It incorporates the main functionalities for which
-`starschemar` was initially intended and it has a new data model defined
-with the aim of facilitating its maintenance and evolution.
-
-# starschemar
+# starschemar <a href="https://josesamos.github.io/starschemar/"><img src="man/figures/logo.png" align="right" height="139" alt="starschemar website" /></a>
 
 <!-- badges: start -->
 
@@ -18,9 +10,8 @@ status](https://www.r-pkg.org/badges/version/starschemar)](https://CRAN.R-projec
 [![R-CMD-check](https://github.com/josesamos/starschemar/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/josesamos/starschemar/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/josesamos/starschemar/branch/master/graph/badge.svg)](https://app.codecov.io/gh/josesamos/starschemar?branch=master)
+[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/starschemar?color=brightgreen)](https://www.r-pkg.org:443/pkg/starschemar)
 <!-- badges: end -->
-
-<!-- [![Downloads](http://cranlogs.r-pkg.org/badges/starschemar?color=brightgreen)](http://www.r-pkg.org/pkg/starschemar) -->
 
 The *multidimensional data model* was defined in the 1990s with the aim
 of supporting data analysis. Data in multidimensional systems is
@@ -45,6 +36,12 @@ The goal of `starschemar` is to define transformations that allow you to
 easily obtain star schemas from flat tables. In addition, it includes
 basic data cleaning, dimension enrichment, incremental data refresh and
 query operations, adapted to this context.
+
+Based on this package, the
+[`rolap`](https://CRAN.R-project.org/package=rolap) package has been
+developed. It incorporates the main functionalities for which
+`starschemar` was initially intended and it has a new data model defined
+with the aim of facilitating its maintenance and evolution.
 
 ## Installation
 
